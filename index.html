@@ -3,84 +3,103 @@
     <head>
         <meta charset="UTF-8">
         <title>Peter的主页</title>
+        <style>
+            /* CSS 样式 */
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            .topbar {
+                background-color: #007bff; /* 蓝色 */
+                color: #fff;
+                padding: 10px;
+            }
+
+            .topbar h1 {
+                margin: 0;
+                font-size: 24px;
+            }
+
+            .topbar ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+
+            .topbar li {
+                float: left;
+            }
+
+            .topbar li a {
+                display: block;
+                color: #fff;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+            .topbar li a:hover {
+                background-color: #0056b3; /* 深蓝色 */
+            }
+
+            /* 主页内容样式 */
+            main {
+                padding: 20px;
+            }
+
+            section {
+                margin-bottom: 40px;
+            }
+
+            h2 {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+
+            p {
+                margin-bottom: 15px;
+            }
+        </style>
     </head>
     <body>
-        <header>
+        <div class="topbar">
             <h1>欢迎来到Peter的主页</h1>
-        </header>
+            <ul>
+                <li><a href="#about">关于我</a></li>
+                <li><a href="#contact">联系我</a></li>
+                <li><a href="#donate">捐赠</a></li>
+            </ul>
+        </div>
+
         <main>
-            <section>
+            <section id="about">
                 <h2>关于我</h2>
-                <p>一些关于Peter的信息...</p>
-                <button onclick="window.location.href='https://github.com/PeterFujiyu/';">
+                <p>我是Peter，欢迎访问我的主页。在这里你可以了解更多关于我的信息。</p>
+                <button onclick="window.location.href='https://github.com/YourUsername';">
                     访问我的Github主页
                 </button>
             </section>
-            <section>
+
+            <section id="contact">
                 <h2>联系我</h2>
-                <p>您可以通过jiyu.fu@outlook.com联系我。</p>
+                <p>如果你想与我联系，请发送电子邮件至 <a href="mailto:jiyu.fu@outlook.com">jiyu.fu@outlook.com</a>。</p>
             </section>
-            <section>
+
+            <section id="donate">
                 <h2>捐赠</h2>
-                <p>我接受数字货币捐赠。这是我的地址：</p>
+                <p>如果你愿意捐赠支持我的工作，我接受数字货币捐赠。以下是我的捐赠地址：</p>
                 <ul>
                     <li><b>ERC20 Token:</b> 0x5f48e2b11e45f7b8bb2c20628a9b77d1d25e7f4f</li>
                     <li><b>BEP20 Token:</b> 0x5f48e2b11e45f7b8bb2c20628a9b77d1d25e7f4f</li>
                 </ul>
-                <p>如果您希望以其他类型的数字货币捐赠，请给我发送邮件，我可以提供几乎任何数字货币的地址。</p>
-            </section>
-            <section>
-                <h2>笔记</h2>
-                <textarea id="note" rows="5" cols="50"></textarea>
-                <label for="shareNote">共享笔记：</label>
-                <input type="checkbox" id="shareNote" onclick="toggleShareNote()">
-                <button onclick="saveNote()">保存笔记</button>
-                <p id="noteSavedMessage" style="display: none;">笔记已保存</p>
+                <p>如果你希望使用其他类型的数字货币进行捐赠，请发送电子邮件给我，我可以提供几乎所有数字货币的地址。</p>
             </section>
         </main>
+
         <footer>
             <p>© 2023 Peter的主页</p>
         </footer>
-
-        <script>
-            // Function to save the note
-            function saveNote() {
-                var noteContent = document.getElementById("note").value;
-                localStorage.setItem("note", noteContent);
-                document.getElementById("noteSavedMessage").style.display = "block";
-                setTimeout(function() {
-                    document.getElementById("noteSavedMessage").style.display = "none";
-                }, 2000);
-
-                // Save the share status
-                var shareCheckbox = document.getElementById("shareNote");
-                var shareStatus = shareCheckbox.checked;
-                localStorage.setItem("shareStatus", shareStatus);
-            }
-
-            // Function to load the saved note and share status
-            function loadNote() {
-                var noteContent = localStorage.getItem("note");
-                if (noteContent) {
-                    document.getElementById("note").value = noteContent;
-                }
-
-                var shareStatus = localStorage.getItem("shareStatus");
-                if (shareStatus) {
-                    var shareCheckbox = document.getElementById("shareNote");
-                    shareCheckbox.checked = (shareStatus === "true");
-                }
-            }
-
-            // Toggle the share status
-            function toggleShareNote() {
-                var shareCheckbox = document.getElementById("shareNote");
-                var shareStatus = shareCheckbox.checked;
-                localStorage.setItem("shareStatus", shareStatus);
-            }
-
-            // Load the saved note and share status when the page loads
-            window.addEventListener("load", loadNote);
-        </script>
     </body>
 </html>
