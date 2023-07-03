@@ -61,7 +61,31 @@
             p {
                 margin-bottom: 15px;
             }
+
+            textarea {
+                width: 100%;
+                height: 100px;
+                resize: vertical;
+            }
         </style>
+        <script>
+            // 添加帖子
+            function addPost() {
+                // 获取帖子内容
+                var postContent = document.getElementById("postContent").value;
+
+                // 创建帖子元素
+                var postElement = document.createElement("p");
+                postElement.innerText = postContent;
+
+                // 将帖子添加到帖子列表
+                var postList = document.getElementById("postList");
+                postList.appendChild(postElement);
+
+                // 清空输入框
+                document.getElementById("postContent").value = "";
+            }
+        </script>
     </head>
     <body>
         <div class="topbar">
@@ -107,8 +131,14 @@
             <section id="linux">
                 <h2>Linux</h2>
                 <p>在这个部分，你可以了解有关Linux的信息。</p>
-                <p>ARM64 Desktop Ubuntu的ISO下载地址：</p>
-                <p><a href="https://cdimage.ubuntu.com/jammy/daily-live/current/">https://cdimage.ubuntu.com/jammy/daily-live/current/</a></p>
+
+                <h3>帖子列表</h3>
+                <div id="postList"></div>
+
+                <h3>添加帖子</h3>
+                <textarea id="postContent" placeholder="请输入帖子内容"></textarea>
+                <br>
+                <button onclick="addPost()">提交</button>
             </section>
         </main>
 
