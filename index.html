@@ -29,23 +29,58 @@
                 </ul>
                 <p>如果您希望以其他类型的数字货币捐赠，请给我发送邮件，我可以提供几乎任何数字货币的地址。</p>
             </section>
+            <section>
+                <h2>笔记</h2>
+                <textarea id="note" rows="5" cols="50"></textarea>
+                <label for="shareNote">共享笔记：</label>
+                <input type="checkbox" id="shareNote" onclick="toggleShareNote()">
+                <button onclick="saveNote()">保存笔记</button>
+                <p id="noteSavedMessage" style="display: none;">笔记已保存</p>
+            </section>
         </main>
         <footer>
             <p>© 2023 Peter的主页</p>
         </footer>
 
         <script>
-            // Language toggle function
-            function toggleLanguage() {
-                var langElements = document.querySelectorAll('[data-lang]');
-                langElements.forEach(function(element) {
-                    var langKey = element.dataset.lang;
-                    var langValue = element.dataset[langKey];
-                    if (langValue) {
-                        element.textContent = langValue;
-                    }
-                });
+            // Function to save the note
+            function saveNote() {
+                var noteContent = document.getElementById("note").value;
+                localStorage.setItem("note", noteContent);
+                document.getElementById("noteSavedMessage").style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("noteSavedMessage").style.display = "none";
+                }, 2000);
+
+                // Save the share status
+                var shareCheckbox = document.getElementById("shareNote");
+                var shareStatus = shareCheckbox.checked;
+                localStorage.setItem("shareStatus", shareStatus);
             }
+
+            // Function to load the saved note and share status
+            function loadNote() {
+                var noteContent = localStorage.getItem("note");
+                if (noteContent) {
+                    document.getElementById("note").value = noteContent;
+                }
+
+                var shareStatus = localStorage.getItem("shareStatus");
+                if (shareStatus) {
+                    var shareCheckbox = document.getElementById("shareNote");
+                    shareCheckbox.checked = (shareStatus === "true");
+                }
+            }
+
+            // Toggle the share status
+            function toggleShareNote() {
+                var shareCheckbox = document.getElementById("shareNote");
+                var shareStatus = shareCheckbox.checked;
+                localStorage.setItem("shareStatus", shareStatus);
+            }
+
+            // Load the saved note and share status when the page loads
+            window.addEventListener("load", loadNote);
         </script>
     </body>
 </html>
