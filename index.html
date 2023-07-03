@@ -5,67 +5,30 @@
         <title>Peter的主页</title>
         <style>
             /* CSS 样式 */
-            body {
-                margin: 0;
-                padding: 0;
-            }
 
-            .topbar {
-                background-color: #007bff; /* 蓝色 */
-                color: #fff;
+            /* ... 省略其他样式 ... */
+
+            .pending-post {
+                background-color: #ffffcc; /* 黄色 */
                 padding: 10px;
-            }
-
-            .topbar h1 {
-                margin: 0;
-                font-size: 24px;
-            }
-
-            .topbar ul {
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-                overflow: hidden;
-            }
-
-            .topbar li {
-                float: left;
-            }
-
-            .topbar li a {
-                display: block;
-                color: #fff;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-            }
-
-            .topbar li a:hover {
-                background-color: #0056b3; /* 深蓝色 */
-            }
-
-            /* 主页内容样式 */
-            main {
-                padding: 20px;
-            }
-
-            section {
-                margin-bottom: 40px;
-            }
-
-            h2 {
-                font-size: 20px;
                 margin-bottom: 10px;
             }
 
-            p {
-                margin-bottom: 15px;
+            .approve-button {
+                background-color: #00cc00; /* 绿色 */
+                color: #fff;
+                padding: 5px 10px;
+                margin-right: 5px;
+                border: none;
+                cursor: pointer;
             }
 
-            textarea {
-                width: 100%;
-                height: 100px;
-                resize: vertical;
+            .delete-button {
+                background-color: #cc0000; /* 红色 */
+                color: #fff;
+                padding: 5px 10px;
+                border: none;
+                cursor: pointer;
             }
         </style>
         <script>
@@ -75,8 +38,13 @@
                 var postContent = document.getElementById("postContent").value;
 
                 // 创建帖子元素
-                var postElement = document.createElement("p");
-                postElement.innerText = postContent;
+                var postElement = document.createElement("div");
+                postElement.className = "pending-post";
+                postElement.innerHTML = `
+                    <p>${postContent}</p>
+                    <button class="approve-button" onclick="approvePost(this)">审核通过</button>
+                    <button class="delete-button" onclick="deletePost(this)">删除</button>
+                `;
 
                 // 将帖子添加到帖子列表
                 var postList = document.getElementById("postList");
@@ -85,9 +53,34 @@
                 // 清空输入框
                 document.getElementById("postContent").value = "";
             }
+
+            // 审核帖子
+            function approvePost(button) {
+                var postElement = button.parentNode;
+                var postContent = postElement.querySelector("p").innerText;
+
+                // 创建帖子元素
+                var approvedPostElement = document.createElement("p");
+                approvedPostElement.innerText = postContent;
+
+                // 将帖子添加到审核通过的帖子列表
+                var approvedPostList = document.getElementById("approvedPostList");
+                approvedPostList.appendChild(approvedPostElement);
+
+                // 从待审核列表中移除帖子
+                postElement.remove();
+            }
+
+            // 删除帖子
+            function deletePost(button) {
+                var postElement = button.parentNode;
+                postElement.remove();
+            }
         </script>
     </head>
     <body>
+        <!-- ... 页面结构 ... -->
+
         <div class="topbar">
             <h1>欢迎来到Peter的主页</h1>
             <ul>
@@ -132,8 +125,11 @@
                 <h2>Linux</h2>
                 <p>在这个部分，你可以了解有关Linux的信息。</p>
 
-                <h3>帖子列表</h3>
+                <h3>待审核帖子列表</h3>
                 <div id="postList"></div>
+
+                <h3>审核通过的帖子列表</h3>
+                <div id="approvedPostList"></div>
 
                 <h3>添加帖子</h3>
                 <textarea id="postContent" placeholder="请输入帖子内容"></textarea>
