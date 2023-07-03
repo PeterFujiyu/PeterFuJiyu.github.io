@@ -2,33 +2,50 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Peter's Homepage</title>
+        <title>Peter的主页</title>
     </head>
     <body>
         <header>
-            <h1>Welcome to Peter's Homepage</h1>
+            <h1>欢迎来到Peter的主页</h1>
         </header>
         <main>
             <section>
-                <h2>About Me</h2>
-                <p>Some information about Peter...</p>
+                <h2>关于我</h2>
+                <p>一些关于Peter的信息...</p>
+                <button onclick="window.location.href='https://github.com/YourUsername';">
+                    访问我的Github主页
+                </button>
             </section>
             <section>
-                <h2>Contact Me</h2>
-                <p>You can reach me at jiyu.fu@outlook.com.</p>
+                <h2>联系我</h2>
+                <p>您可以通过jiyu.fu@outlook.com联系我。</p>
             </section>
             <section>
-                <h2>Donate</h2>
-                <p>I accept donations in digital currencies. Here are my addresses:</p>
+                <h2>捐赠</h2>
+                <p>我接受数字货币捐赠。这是我的地址：</p>
                 <ul>
                     <li><b>ERC20 Token:</b> 0x5f48e2b11e45f7b8bb2c20628a9b77d1d25e7f4f</li>
                     <li><b>BEP20 Token:</b> 0x5f48e2b11e45f7b8bb2c20628a9b77d1d25e7f4f</li>
                 </ul>
-                <p>If you'd like to donate in other types of digital currencies, please send me an email and I can provide an address for nearly any digital currency.</p>
+                <p>如果您希望以其他类型的数字货币捐赠，请给我发送邮件，我可以提供几乎任何数字货币的地址。</p>
             </section>
         </main>
         <footer>
-            <p>© 2023 Peter's Homepage</p>
+            <p>© 2023 Peter的主页</p>
         </footer>
+
+        <script>
+            // Language toggle function
+            function toggleLanguage() {
+                var langElements = document.querySelectorAll('[data-lang]');
+                langElements.forEach(function(element) {
+                    var langKey = element.dataset.lang;
+                    var langValue = element.dataset[langKey];
+                    if (langValue) {
+                        element.textContent = langValue;
+                    }
+                });
+            }
+        </script>
     </body>
 </html>
